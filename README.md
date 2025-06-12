@@ -1,33 +1,71 @@
-# 🔍 Web Search Summary Tool
+# LangGraph RAG & Web Search Chatbot
 
-A lightweight Python tool that performs a live web search using TavilySearch and returns a concise summary of the top results. This tool is designed to be integrated into AI agent frameworks (like LangChain) to provide up-to-date public information in natural language queries.
-
----
-
-## 📦 Features
-
-- Performs live web searches using [Tavily](https://www.tavily.com/)
-- Extracts and summarizes content from the top search results
-- Useful for Retrieval-Augmented Generation (RAG) workflows
-- Handles errors and missing content gracefully
-- Can be integrated as a `@tool` function in agent-based systems (e.g. LangChain, CrewAI, AutoGPT, etc.)
+This project is a **LangGraph-based AI assistant** that uses Retrieval-Augmented Generation (RAG) and web search (via Tavily) to answer questions. The assistant is constrained to only respond using tool outputs, making it deterministic, safe, and grounded.
 
 ---
 
-## 🧠 Example Use Case
+## Features
 
-```python
-summary = web_search_summary("Who is the president of France?")
-print(summary)
-```
+- **RAG Integration**: Retrieves answers from internal documentation (e.g. LangChain, Python, FastAPI).
+- **Web Search Tool**: Uses Tavily API to fetch and summarize up-to-date web content.
+- **LangGraph Workflow**: Modular, deterministic flow between system message, tool usage, and final response.
+- **Tool-Only Agent**: Model is restricted to tool responses only — no hallucination or fallback to model knowledge.
 
-Output
-Emmanuel Macron is the President of France. He was elected in 2017 and re-elected in 2022...
+---
 
-🛠️ Installation
-Clone the repository:
+## Project Structure
 
-git clone https://github.com/your-username/web-search-summary-tool.git
+--- .
+├── app
+│ ├── api_functions
+│ │ ├── **init**.py
+│ │ ├── **pycache**
+│ │ │ ├── **init**.cpython-312.pyc
+│ │ │ └── web_search_summary.cpython-312.pyc
+│ │ └── web_search_summary.py
+│ ├── **init**.py
+│ ├── LLM_models.py
+│ ├── LLM_system.py
+│ ├── main.py
+│ ├── **pycache**
+│ │ ├── **init**.cpython-312.pyc
+│ │ ├── LLM_models.cpython-312.pyc
+│ │ ├── LLM_system.cpython-312.pyc
+│ │ └── main.cpython-312.pyc
+│ └── rag
+│ ├── **init**.py
+│ ├── **pycache**
+│ │ ├── **init**.cpython-312.pyc
+│ │ └── rag_retriever.cpython-312.pyc
+│ └── rag_retriever.py
+├── docker-compose.yml
+├── Dockerfile
+├── README.md
+└── requirements.txt
+
+---
+
+## Available Tools
+
+| Tool         | Description                                                              |
+| ------------ | ------------------------------------------------------------------------ |
+| `rag_data`   | Retrieves relevant internal documentation and summarizes it using RAG.   |
+| `web_search` | Uses Tavily API to fetch recent or public information from the internet. |
+
+---
+
+## Example Use Cases
+
+| Query                               | Tool Used    |
+| ----------------------------------- | ------------ |
+| "What is LangGraph?"                | `rag_data`   |
+| "Who is President of United States" | `web_search` |
+| "Explain FastAPI routing"           | `rag_data`   |
+| "Latest news about AI chips"        | `web_search` |
+
+---
+
+## How to Run
 
 Set .env file in root directory. It must contain these keys:
 
