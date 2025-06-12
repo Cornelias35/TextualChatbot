@@ -20,3 +20,19 @@ A lightweight Python tool that performs a live web search using TavilySearch and
 summary = web_search_summary("Who is the president of France?")
 print(summary)
 ```
+
+Output
+Emmanuel Macron is the President of France. He was elected in 2017 and re-elected in 2022...
+
+🛠️ Installation
+Clone the repository:
+
+git clone https://github.com/your-username/web-search-summary-tool.git
+
+Set .env file in root directory. It must contain these keys:
+
+- OPENAI_API_KEY= your_openai_api_key
+- LANGSMITH_API_KEY= your_langsmith_key
+- TAVILY_API_KEY= your_tavily_api_key
+
+You can either build project by using "docker compose up --build" or "PYTHONPATH=app fastapi dev app/main.py"
