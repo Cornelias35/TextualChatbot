@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from LLM_system import Chatbot
 from LLM_models import Request
 from rag.rag_retriever import rag_data
-from api_functions.web_search_summary import web_search_summary
+from api_functions.web_search_summary import web_search
 app = FastAPI()
 
 @app.get("/")
@@ -30,7 +30,7 @@ def chatbot(request : Request):
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 
-    tools = [web_search_summary, rag_data]
+    tools = [web_search, rag_data]
 
     llm_with_tools = llm.bind_tools(tools)
 

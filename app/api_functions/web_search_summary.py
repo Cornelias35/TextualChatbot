@@ -5,7 +5,7 @@ from langchain_core.tools import tool
 
 
 @tool
-def web_search_summary(query: str):
+def web_search(query: str):
     """
     Performs a web search and returns results. Use this tool to find up-to-date or publicly available information.
     Args:
@@ -18,6 +18,6 @@ def web_search_summary(query: str):
         if not results:
             return "No results found."
         summary = " ".join([r["content"] for r in results if r.get("content")])
-        return summary[:300]  # trim if too long
+        return summary[:300]
     except Exception as e:
         return f"Error during web search: {str(e)}"
