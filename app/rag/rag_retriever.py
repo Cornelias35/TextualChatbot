@@ -5,30 +5,35 @@ from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain.tools.retriever import create_retriever_tool
 
-# Sıkça sorulan sorular rag datası ile değiştirilecektir.
 urls = [
-    "",
-    "",
-    "",
+    "https://python.langchain.com/docs/introduction/",
+    "https://docs.python.org/3/tutorial/index.html",
+    "https://fastapi.tiangolo.com/tutorial/",
 ]
 @tool
-def rag_data(rag_query : str):
+def rag_data(rag_query : str) -> str:
     """
-    Use this function to get FAQ data. It returns related document as string and briefly summarize it to user.
-    This is RAG retriever. Make sure you are sending related query as following user needs.
+    RAG retriever to get relevant document content and summarize it.
     Args:
-        rag_query : str
+        rag_query: str
+    Returns:
+        Relevant chunk of text
     """
-    docs = [WebBaseLoader(url).load() for url in urls]
-
-    docs_list = [item for sublist in docs for item in sublist]
+    all_docs = []
+    for url in urls:
+        loader = WebBaseLoader(url)
+        try:
+            docs = loader.load()
+            all_docs.extend(docs)
+        except Exception as e:
+            print(f"Error loading {url}: {e}")
 
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         chunk_size=100,
         chunk_overlap = 50
     )
 
-    docs_splits = text_splitter.split_documents(docs_list)
+    docs_splits = text_splitter.split_documents(all_docs)
 
     vectorstore = InMemoryVectorStore.from_documents(
         documents=docs_splits,
@@ -36,15 +41,11 @@ def rag_data(rag_query : str):
     )
     retriever = vectorstore.as_retriever()
 
-    retriever_tool = create_retriever_tool(
-        retriever,
-        "gamesatis_faq",
-        "Search and return information about Gamesatış-frequently asked questions.",
-    )
+    result_docs = retriever.invoke(rag_query)
 
-    response = retriever_tool.invoke({"query": f"{rag_query}"})
+    response_text = "\n---\n".join([doc.page_content for doc in result_docs[:2]])
 
-    return response
+    return f"Top matching content:\n{response_text}"
 
 
 

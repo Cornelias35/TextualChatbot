@@ -11,5 +11,4 @@ class State(MessagesState):
 class Request(BaseModel):
     prompt: str
     user_id: int
-    checksum: str
     summary_prev: str = ""

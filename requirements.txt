@@ -16,3 +16,5 @@ pydantic~=2.11.4
 beautifulsoup4
 langchain-text-splitters~=0.3.8
 typing_extensions~=4.13.2
+tavily~=0.1.2
+langchain-tavily~=0.3.2
