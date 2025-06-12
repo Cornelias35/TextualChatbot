@@ -67,5 +67,6 @@ def chatbot(request : Request):
         "ai_message": response["messages"][-1].content,
         "summary": response["current_summary"]
     }
-
+    for m in response["messages"]:
+        m.pretty_print()
     return return_value
