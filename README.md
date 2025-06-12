@@ -16,31 +16,19 @@ This project is a **LangGraph-based AI assistant** that uses Retrieval-Augmented
 ## Project Structure
 
 --- .
-├── app
-│ ├── api_functions
-│ │ ├── **init**.py
-│ │ ├── **pycache**
-│ │ │ ├── **init**.cpython-312.pyc
-│ │ │ └── web_search_summary.cpython-312.pyc
-│ │ └── web_search_summary.py
-│ ├── **init**.py
-│ ├── LLM_models.py
-│ ├── LLM_system.py
-│ ├── main.py
-│ ├── **pycache**
-│ │ ├── **init**.cpython-312.pyc
-│ │ ├── LLM_models.cpython-312.pyc
-│ │ ├── LLM_system.cpython-312.pyc
-│ │ └── main.cpython-312.pyc
-│ └── rag
-│ ├── **init**.py
-│ ├── **pycache**
-│ │ ├── **init**.cpython-312.pyc
-│ │ └── rag_retriever.cpython-312.pyc
-│ └── rag_retriever.py
-├── docker-compose.yml
-├── Dockerfile
-├── README.md
+├── app  
+│ ├── api_functions  
+│ │ ├── **init**.py  
+│ │ └── web_search_summary.py  
+│ ├── **init**.py  
+│ ├── LLM_models.py  
+│ ├── LLM_system.py  
+│ ├── main.py  
+│ └── rag  
+│ └── rag_retriever.py  
+├── docker-compose.yml  
+├── Dockerfile  
+├── README.md  
 └── requirements.txt
 
 ---
