@@ -15,7 +15,7 @@ This project is a **LangGraph-based AI assistant** that uses Retrieval-Augmented
 
 ## Project Structure
 
---- .
+--- .  
 ├── app  
 │ ├── api_functions  
 │ │ ├── **init**.py  
